@@ -1,0 +1,58 @@
+html,
+body {
+  background-image: url("/img/ampol.jpeg");
+  /* background-repeat: no-repeat;
+  background-size: cover; */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+/* .content {
+  border: 2px solid black;
+  height: 680px;
+  width: 50%;
+  background-color: #d6e7d8;
+  opacity: 1;
+} */
+#camera,
+#cameraView,
+#cameraSensor,
+#camera--output {
+  position: fixed;
+  height: 30%;
+  width: 24%;
+  object-fit: cover;
+  margin: 30px;
+}
+#cameraView,
+#cameraSensor,
+#camera--output {
+  transform: scaleX(-1);
+  filter: FlipH;
+}
+#camera--trigger {
+  width: 200px;
+  background-color: rgb(244, 22, 199);
+  color: white;
+  font-size: 16px;
+  border-radius: 30px;
+  border: none;
+  padding: 15px 20px;
+  text-align: center;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+  position: fixed;
+  bottom: 30px;
+  left: calc(50% - 100px);
+}
+
+.taken {
+  height: 100px !important;
+  width: 100px !important;
+  transition: all 0.5s ease-in;
+  border: solid 3px white;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+  top: 20px;
+  right: 180px;
+  z-index: 2;
+}

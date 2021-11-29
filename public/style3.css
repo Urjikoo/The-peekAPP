@@ -1,0 +1,17 @@
+.container {
+  margin-top: 60px;
+  margin-left: 420px;
+  width: 60%;
+  height: 370px;
+  border: 1px solid gray;
+  background-color: rgba(228, 201, 131, 0.769);
+
+  border-radius: 15px;
+}
+body {
+  padding-top: 80px;
+  word-wrap: break-word;
+  background-image: url("/img/lom.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}

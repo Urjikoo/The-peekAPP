@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("/img/pik.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+.container {
+  margin: 30px 390px 20px;
+  height: 290px;
+  width: 40%;
+  /* background-color: rgba(255, 253, 253, 0.598); */
+}
+img {
+  height: 220px;
+  width: 220px;
+  margin-left: 480px;
+}
+label {
+  width: 30%;
+  float: left;
+}
+h1,
+label {
+  color: purple;
+}
+.welcomeProfile {
+  border: 2px solid rosybrown;
+  border-radius: 10px;
+  width: 40%;
+  margin: 140px 440px;
+  background-color: rgba(240, 226, 215, 0.762);
+}
+.signUp {
+  margin-left: -300px;
+}

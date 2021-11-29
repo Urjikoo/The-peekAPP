@@ -1,0 +1,26 @@
+body {
+  padding-top: 80px;
+  word-wrap: break-word;
+  background-image: url("/img/air.jpeg");
+}
+img {
+  height: 400px;
+  width: 380px;
+  margin-left: 30%;
+}
+h1 {
+  color: white;
+}
+
+section {
+  margin-left: 30%;
+}
+h1 {
+  align-items: center;
+  margin-left: 40%;
+  color: red;
+}
+button {
+  width: 190px;
+  height: 45px;
+}
