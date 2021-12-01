@@ -145,17 +145,45 @@ app.get("/result/:result",function (req, res){
   res.render("result.ejs",{nameOfObject: nameOfObject, img: img})
 })
 
-// app.get("/result",function (req, res){
-//   res.render("result.ejs",{nameOfObject:req.query.nameOfObject, img:req.query.objectURL})
-// })
+app.put('/result/savedArticle', function(req,res){
+  // console.log(req.body.ancorButton,req.body.imgSource)
+  db.collection('users')
+      .findOneAndUpdate({_id: req.user._id}, {
+        $push:  {
 
-// test====
+         savedArticles:{ancorButton:req.body.ancorButton, imgSource:req.body.imgSource}
+
+        }
+      }, {
+        sort: {_id: -1},
+        upsert: true
+      }, (err, result) => {
+        if (err) return res.send(err)
+        res.send(result)
+      })
+})
+app.get("/library",function (req, res){
+  db.collection('users')
+      .findOne({_id: req.user._id})
+
+        .toArray((err, result) => {
+          console.log('this is from routes',result)
+          if (err) return console.log(err);
+          res.render("library.ejs",{
+           result
+
+          })
+       });
 
 
+})
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
-// get request for result.ejs
+
+app.get("/profile/library", (req, res) => {
+  res.render("library.ejs");
+});
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {

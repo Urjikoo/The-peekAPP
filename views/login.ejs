@@ -15,15 +15,16 @@
   <body>
     <div class="container">
       <div class="col-sm-6 col-sm-offset-3">
-        <h1>Please Login</h1>
 
-        <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
-        <% } %>
 
         <!-- LOGIN FORM -->
         <form action="/login" method="post">
           <div class="form-group">
+            <h1>Please Login</h1>
+
+            <% if (message.length > 0) { %>
+            <div class="alert alert-danger"><%= message %></div>
+            <% } %>
             <label>Email</label>
             <input type="text" class="form-control" name="email" />
           </div>
@@ -33,12 +34,13 @@
           </div>
 
           <button type="submit" class="btn btn-warning btn-lg">Login</button>
+          <p>Need an account? <a href="/signup">Signup</a></p>
+          <p>Or go <a href="/">home</a>.</p>
         </form>
 
         <hr />
 
-        <p>Need an account? <a href="/signup">Signup</a></p>
-        <p>Or go <a href="/">home</a>.</p>
+
       </div>
     </div>
   </body>

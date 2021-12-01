@@ -1,0 +1,52 @@
+*{
+  box-sizing:border-box;
+}
+body {
+  padding-top: 80px;
+  background-image: url('/img/ty8.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#apiOutcome div{
+  float:left;
+  margin:20px;
+  width:30%;
+  text-decoration:none;
+border: 2px solid black;
+}
+#apiOutcome img {
+  margin-bottom: 20px;
+  border:2px solid red;
+  width: 100%;
+  height: 300px;
+  align-self: center;
+  float:left;
+  text-decoration:none;
+}
+ul li a{
+   text-decoration:none;
+   color:green;
+}
+ul li{
+  text-decoration:none;
+  list-style-type: none;
+}
+img{
+  width:100px;
+  float:left;
+}
+#apiSearch{
+  color: purple;
+  border:1px solid yellow;
+  height:42px;
+  width:35%;
+  font-size:22px;
+  border-radius:10px;
+  margin-left:152px;
+}
+#searchElement{
+  border:2px solid blue;
+  height:80px;
+  width:70%
+}
