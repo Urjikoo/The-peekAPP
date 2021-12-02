@@ -46,6 +46,7 @@ window.addEventListener("load", cameraStart, false);
 let result1= document.querySelector("#outcome")
 
 
+
 // fetch("/result", {
 //   method: "post",
 //   headers: { "Content-Type": "application/json" },

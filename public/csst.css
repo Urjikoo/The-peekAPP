@@ -1,15 +1,32 @@
+*{
+  box-sizing:border-box;
+}
 body {
-  margin: 0;
-  overflow: hidden;
+  padding-top: 80px;
+  background-image: url('/img/ty8.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-#instructions {
-  position: absolute;
-  color: #666;
-  bottom: 0;
-  padding-bottom: 6px;
-  font-family: sans-serif;
-  width: 100%;
-  text-align: center;
-  pointer-events: none;
+
+
+
+img{
+  width:100%;
+  height:162px;
+  float:left;
+}
+
+#searchElement{
+/*   border:2px solid blue; */
+  height:208px;
+  width:23%;
+  float:left;
+  margin:23px;
+  background-color:#ffffffbd;
+  box-shadow:5px 10px 8px #00000087;
+}
+a {
+  color:black;
+  width:100%;
 }

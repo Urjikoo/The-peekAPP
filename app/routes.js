@@ -1,4 +1,4 @@
-module.exports = function (app, passport, db, fs, s3, multer, multerS3, aws, cloudinary, computerVisionClient, ApiKeyCredentials) {
+module.exports = function (app, passport, db, fs, s3, multer, multerS3, aws, cloudinary, computerVisionClient, ApiKeyCredentials,ObjectId) {
   aws.config.region = "us-east-1";
 
   // normal routes ===============================================================
@@ -147,7 +147,7 @@ app.get("/result/:result",function (req, res){
 
 app.put('/result/savedArticle', function(req,res){
   // console.log(req.body.ancorButton,req.body.imgSource)
-  db.collection('users')
+  db.collection('reverseimage')
       .findOneAndUpdate({_id: req.user._id}, {
         $push:  {
 
@@ -163,27 +163,36 @@ app.put('/result/savedArticle', function(req,res){
       })
 })
 app.get("/library",function (req, res){
-  db.collection('users')
-      .findOne({_id: req.user._id})
-
+  db.collection('reverseimage')
+      .find({_id: req.user._id})
         .toArray((err, result) => {
-          console.log('this is from routes',result)
+          console.log('this is from routes',result[0].savedArticles)
           if (err) return console.log(err);
           res.render("library.ejs",{
-           result
+            articles: result[0].savedArticles,
+            dog: result[0]._id
 
           })
        });
-
 
 })
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
 
-app.get("/profile/library", (req, res) => {
-  res.render("library.ejs");
-});
+// ===================>
+app.delete("/deleteContent", (req, res) => {
+
+    db.collection("reverseimage").findOneAndDelete(
+      {
+        _id: ObjectId(req.body.trash)
+      },
+      (err, result) => {
+        if (err) return res.send(500, err);
+        res.send("Message deleted!");
+      }
+    );
+  });
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {

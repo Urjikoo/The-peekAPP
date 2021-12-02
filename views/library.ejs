@@ -4,14 +4,21 @@
     <title>Your library</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="/csst.css">
   </head>
   <body>
 <h2>hello!</h2>
-    <!-- <%for let i=0; i>result.length; i++ {%>
-      <span><%= result[i].local.email%></span>
+<% for(let i=0; i<articles.length; i++) {%>
+  <div id="searchElement">
+  <img src='<%= articles[i].imgSource %>'>
+  <a href="<%= articles[i].ancorButton %>"><%= articles[i].ancorButton %></a>
+  <button type="button" class="trash" data-bob="<%= dog %>">trash</button>
+</div>
 
-    <%}%> -->
+<%}%>
 
-  </body>
+</body>
+<script src="secondarymain.js"></script>
+
+
 </html>

@@ -15,7 +15,7 @@ var morgan = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var session = require("express-session");
-
+var ObjectId = require('mongodb').ObjectId
 var fs = require("fs");
 var configDB = require("./config/database.js");
 var multerS3 = require("multer-s3");
@@ -27,7 +27,7 @@ var db;
 mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err);
   db = database;
-  require("./app/routes.js")(app, passport, db, fs, s3, multer, multerS3, aws,cloudinary, computerVisionClient, ApiKeyCredentials );
+  require("./app/routes.js")(app, passport, db, fs, s3, multer, multerS3, aws,cloudinary, computerVisionClient, ApiKeyCredentials,ObjectId );
 }); // connect to our database
 
 require("./config/passport")(passport); // pass passport for configuration
