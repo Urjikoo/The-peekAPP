@@ -1,5 +1,17 @@
-module.exports = function (app, passport, db, fs, s3, multer, multerS3, aws, cloudinary, computerVisionClient, ApiKeyCredentials,ObjectId) {
-  aws.config.region = "us-east-1";
+module.exports = function (
+  app,
+  passport,
+  db,
+  fs,
+  s3,
+  multer,
+  multerS3,
+  cloudinary,
+  computerVisionClient,
+  ApiKeyCredentials,
+  ObjectId
+) {
+  // aws.config.region = "us-east-1";
 
   // normal routes ===============================================================
 
@@ -12,24 +24,22 @@ module.exports = function (app, passport, db, fs, s3, multer, multerS3, aws, clo
   app.get("/profile", isLoggedIn, function (req, res) {
     // let capturedImage = photos.filter(e);
     // console.log(capturedImage);
-    console.log('from profile')
+    console.log("from profile");
     db.collection("photos")
-     .find()
-       .toArray((err, result) => {
-         if (err) return console.log(err);
+      .find()
+      .toArray((err, result) => {
+        if (err) return console.log(err);
         res.render("profile.ejs", {
           user: req.user,
         });
       });
   });
 
-
   // LOGOUT ==============================
   app.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/");
   });
-
 
   // =============================================================================
   // AUTHENTICATE (FIRST LOGIN) ==================================================
@@ -85,107 +95,111 @@ module.exports = function (app, passport, db, fs, s3, multer, multerS3, aws, clo
     });
   });
 
-// =========result ejs route=========
+  // =========result ejs route=========
 
-app.post("/result", async (req, res) => {
-  try {
-    // Upload image to cloudinary
-    const result = await cloudinary.uploader.upload(req.body.imageURL);
-    const objectURL = result.secure_url;
+  app.post("/result", async (req, res) => {
+    try {
+      // Upload image to cloudinary
+      const result = await cloudinary.uploader.upload(req.body.imageURL);
+      const objectURL = result.secure_url;
 
-    // Analyze a URL image
-    console.log("Analyzing objects in image...", objectURL.split("/").pop());
-    const objects = (
-      await computerVisionClient.analyzeImage(objectURL, {
-        visualFeatures: ["Objects"],
-      })
-    ).objects;
-    let nameOfObject;
-    // Print objects bounding box and confidence
-    if (objects.length) {
-      console.log(
-        `${objects.length} object${objects.length == 1 ? "" : "s"} found:`
-      );
+      // Analyze a URL image
+      console.log("Analyzing objects in image...", objectURL.split("/").pop());
+      const objects = (
+        await computerVisionClient.analyzeImage(objectURL, {
+          visualFeatures: ["Objects"],
+        })
+      ).objects;
+      let nameOfObject;
+      // Print objects bounding box and confidence
+      if (objects.length) {
+        console.log(
+          `${objects.length} object${objects.length == 1 ? "" : "s"} found:`
+        );
 
-
-
-      for (const obj of objects) {
-        nameOfObject= obj.object
-      }
-   }else{
-     nameOfObject='Please try again!'
-   }
-
-    function formatRectObjects(rect) {
-      return (
-        `top=${rect.y}`.padEnd(10) +
-        `left=${rect.x}`.padEnd(10) +
-        `bottom=${rect.y + rect.h}`.padEnd(12) +
-        `right=${rect.x + rect.w}`.padEnd(10) +
-        `(${rect.w}x${rect.h})`
-      );
-    }
-   console.log(nameOfObject)
-   let objectName = nameOfObject;
-   let itemURL = objectURL;
-   console.log("from result 129",objectName,itemURL)
-
-   console.log('from result')
-   res.redirect(`result/${encodeURIComponent(objectName)}splitHere${encodeURIComponent(itemURL)}`)
-    // res.render("result.ejs",{nameOfObject:nameOfObject, img: objectURL});
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.get("/result/:result",function (req, res){
-  let arr = req.params.result.split('splitHere')
-  let nameOfObject = arr[0]
-  let img = arr[1]
-  res.render("result.ejs",{nameOfObject: nameOfObject, img: img})
-})
-
-app.put('/result/savedArticle', function(req,res){
-  // console.log(req.body.ancorButton,req.body.imgSource)
-  db.collection('reverseimage')
-      .findOneAndUpdate({_id: req.user._id}, {
-        $push:  {
-
-         savedArticles:{ancorButton:req.body.ancorButton, imgSource:req.body.imgSource}
-
+        for (const obj of objects) {
+          nameOfObject = obj.object;
         }
-      }, {
-        sort: {_id: -1},
-        upsert: true
-      }, (err, result) => {
-        if (err) return res.send(err)
-        res.send(result)
-      })
-})
-app.get("/library",function (req, res){
-  db.collection('reverseimage')
-      .find({_id: req.user._id})
-        .toArray((err, result) => {
-          console.log('this is from routes',result[0].savedArticles)
-          if (err) return console.log(err);
-          res.render("library.ejs",{
-            articles: result[0].savedArticles,
-            dog: result[0]._id
+      } else {
+        nameOfObject = "Please try again!";
+      }
 
-          })
-       });
+      function formatRectObjects(rect) {
+        return (
+          `top=${rect.y}`.padEnd(10) +
+          `left=${rect.x}`.padEnd(10) +
+          `bottom=${rect.y + rect.h}`.padEnd(12) +
+          `right=${rect.x + rect.w}`.padEnd(10) +
+          `(${rect.w}x${rect.h})`
+        );
+      }
+      console.log(nameOfObject);
+      let objectName = nameOfObject;
+      let itemURL = objectURL;
+      console.log("from result 129", objectName, itemURL);
 
-})
-app.get("/", (req, res) => {
-  res.render("index.ejs");
-});
+      console.log("from result");
+      res.redirect(
+        `result/${encodeURIComponent(objectName)}splitHere${encodeURIComponent(
+          itemURL
+        )}`
+      );
+      // res.render("result.ejs",{nameOfObject:nameOfObject, img: objectURL});
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
-// ===================>
-app.delete("/deleteContent", (req, res) => {
+  app.get("/result/:result", function (req, res) {
+    let arr = req.params.result.split("splitHere");
+    let nameOfObject = arr[0];
+    let img = arr[1];
+    res.render("result.ejs", { nameOfObject: nameOfObject, img: img });
+  });
 
+  app.put("/result/savedArticle", function (req, res) {
+    // console.log(req.body.ancorButton,req.body.imgSource)
+    db.collection("reverseimage").findOneAndUpdate(
+      { _id: req.user._id },
+      {
+        $push: {
+          savedArticles: {
+            ancorButton: req.body.ancorButton,
+            imgSource: req.body.imgSource,
+          },
+        },
+      },
+      {
+        sort: { _id: -1 },
+        upsert: true,
+      },
+      (err, result) => {
+        if (err) return res.send(err);
+        res.send(result);
+      }
+    );
+  });
+  app.get("/library", function (req, res) {
+    db.collection("reverseimage")
+      .find({ _id: req.user._id })
+      .toArray((err, result) => {
+        console.log("this is from routes", result[0].savedArticles);
+        if (err) return console.log(err);
+        res.render("library.ejs", {
+          articles: result[0].savedArticles,
+          dog: result[0]._id,
+        });
+      });
+  });
+  app.get("/", (req, res) => {
+    res.render("index.ejs");
+  });
+
+  // ===================>
+  app.delete("/deleteContent", (req, res) => {
     db.collection("reverseimage").findOneAndDelete(
       {
-        _id: ObjectId(req.body.trash)
+        _id: ObjectId(req.body.trash),
       },
       (err, result) => {
         if (err) return res.send(500, err);
@@ -194,10 +208,10 @@ app.delete("/deleteContent", (req, res) => {
     );
   });
 
-// route middleware to ensure user is logged in
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) return next();
+  // route middleware to ensure user is logged in
+  function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) return next();
 
-  res.redirect("/");
-}
+    res.redirect("/");
+  }
 };

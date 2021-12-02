@@ -2,7 +2,7 @@
 
 // set up ======================================================================
 // get all the tools we need
-var aws = require("aws-sdk");
+// var aws = require("aws-sdk");
 var express = require("express");
 var app = express();
 var port = process.env.PORT || 9000;
@@ -10,16 +10,16 @@ const MongoClient = require("mongodb").MongoClient;
 var mongoose = require("mongoose");
 var passport = require("passport");
 var flash = require("connect-flash");
-var configAWS = require("./config/aws.js");
+// var configAWS = require("./config/aws.js");
 var morgan = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var session = require("express-session");
-var ObjectId = require('mongodb').ObjectId
+var ObjectId = require("mongodb").ObjectId;
 var fs = require("fs");
 var configDB = require("./config/database.js");
 var multerS3 = require("multer-s3");
-var s3 = new aws.S3(configAWS);
+// var s3 = new aws.S3(configAWS);
 
 var db;
 
@@ -27,7 +27,19 @@ var db;
 mongoose.connect(configDB.url, (err, database) => {
   if (err) return console.log(err);
   db = database;
-  require("./app/routes.js")(app, passport, db, fs, s3, multer, multerS3, aws,cloudinary, computerVisionClient, ApiKeyCredentials,ObjectId );
+  require("./app/routes.js")(
+    app,
+    passport,
+    db,
+    fs,
+    s3,
+    multer,
+    multerS3,
+    cloudinary,
+    computerVisionClient,
+    ApiKeyCredentials,
+    ObjectId
+  );
 }); // connect to our database
 
 require("./config/passport")(passport); // pass passport for configuration
@@ -132,9 +144,6 @@ app.use(express.static("public"));
 // let itemURL;
 // let objectName;
 // ===================function2 for API=======>
-
-
-
 
 // POST req
 // app.post("/result", async (req, res) => {
