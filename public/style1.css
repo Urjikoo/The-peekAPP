@@ -8,22 +8,19 @@ body {
   height: 100%;
   width: 100%;
 }
-/* .content {
-  border: 2px solid black;
-  height: 680px;
-  width: 50%;
-  background-color: #d6e7d8;
-  opacity: 1;
-} */
+
 #camera,
 #cameraView,
 #cameraSensor,
 #camera--output {
+
   position: fixed;
-  height: 30%;
-  width: 24%;
+  height: 40%;
+  width: 33%;
   object-fit: cover;
   margin: 30px;
+  margin-left:123px;
+  border-radius:23px;
 }
 #cameraView,
 #cameraSensor,
@@ -42,9 +39,14 @@ body {
   text-align: center;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
   position: fixed;
-  bottom: 30px;
-  left: calc(50% - 100px);
+  bottom: 130px;
+  left: calc(46% - 100px);
 }
+#camera--output{
+  border:1px solid gold;
+
+}
+
 
 .taken {
   height: 100px !important;
@@ -55,4 +57,9 @@ body {
   top: 20px;
   right: 180px;
   z-index: 2;
+}
+a{
+  color:white;
+  font-weight:bolder;
+
 }

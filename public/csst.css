@@ -18,7 +18,7 @@ img{
 }
 
 #searchElement{
-/*   border:2px solid blue; */
+
   height:208px;
   width:23%;
   float:left;
@@ -29,4 +29,8 @@ img{
 a {
   color:black;
   width:100%;
+}
+.ancors a{
+  color: magenta;
+  padding:5px;
 }

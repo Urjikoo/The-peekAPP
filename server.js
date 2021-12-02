@@ -32,7 +32,7 @@ mongoose.connect(configDB.url, (err, database) => {
     passport,
     db,
     fs,
-    s3,
+
     multer,
     multerS3,
     cloudinary,

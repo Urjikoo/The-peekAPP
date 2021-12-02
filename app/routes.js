@@ -3,7 +3,6 @@ module.exports = function (
   passport,
   db,
   fs,
-  s3,
   multer,
   multerS3,
   cloudinary,
@@ -11,8 +10,6 @@ module.exports = function (
   ApiKeyCredentials,
   ObjectId
 ) {
-  // aws.config.region = "us-east-1";
-
   // normal routes ===============================================================
 
   // show the home page (will also have our login links)

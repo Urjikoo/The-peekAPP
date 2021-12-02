@@ -7,12 +7,17 @@
     <link rel="stylesheet" href="/csst.css">
   </head>
   <body>
-<h2>hello!</h2>
+<h2>Your Library</h2>
+<div class="ancors">
+
+<a href="/">home</a>
+<a href="/profile">Main page</a>
+</div>
+
 <% for(let i=0; i<articles.length; i++) {%>
   <div id="searchElement">
   <img src='<%= articles[i].imgSource %>'>
   <a href="<%= articles[i].ancorButton %>"><%= articles[i].ancorButton %></a>
-  <button type="button" class="trash" data-bob="<%= dog %>">trash</button>
 </div>
 
 <%}%>
