@@ -103,7 +103,5 @@ dist
 # TernJS port file
 .tern-port
 .env
-img
-config
-aws.js
-database.js
+
+
