@@ -110,18 +110,20 @@ module.exports = function (
       let nameOfObject;
       // Print objects bounding box and confidence
       if (objects.length) {
+        //did i find anything?
         console.log(
           `${objects.length} object${objects.length == 1 ? "" : "s"} found:`
         );
 
         for (const obj of objects) {
-          nameOfObject = obj.object;
+          nameOfObject = obj.object; //finding the last (name of obj[0].obj)
         }
       } else {
-        nameOfObject = "Please try again!";
+        nameOfObject = "Please try again!"; //if i don't have any
       }
 
       function formatRectObjects(rect) {
+        //not used anymore()
         return (
           `top=${rect.y}`.padEnd(10) +
           `left=${rect.x}`.padEnd(10) +
@@ -138,6 +140,7 @@ module.exports = function (
       console.log("from result");
       res.redirect(
         `result/${encodeURIComponent(objectName)}splitHere${encodeURIComponent(
+          //redirecting the browser  to the get result. //separating the name and object
           itemURL
         )}`
       );
@@ -148,10 +151,10 @@ module.exports = function (
   });
 
   app.get("/result/:result", function (req, res) {
-    let arr = req.params.result.split("splitHere");
+    let arr = req.params.result.split("splitHere"); //splitting the url
     let nameOfObject = arr[0];
     let img = arr[1];
-    res.render("result.ejs", { nameOfObject: nameOfObject, img: img });
+    res.render("result.ejs", { nameOfObject: nameOfObject, img: img }); //rendering the img along with the name.
   });
 
   app.put("/result/savedArticle", function (req, res) {
@@ -168,7 +171,7 @@ module.exports = function (
       },
       {
         sort: { _id: -1 },
-        upsert: true,
+        upsert: true, //if it can't find any saved document it will create a new one.
       },
       (err, result) => {
         if (err) return res.send(err);
@@ -180,6 +183,7 @@ module.exports = function (
     db.collection("reverseimage")
       .find({ _id: req.user._id })
       .toArray((err, result) => {
+        //didnt need it
         console.log("this is from routes", result[0].savedArticles);
         if (err) return console.log(err);
         res.render("library.ejs", {
